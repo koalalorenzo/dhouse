@@ -26,40 +26,47 @@ class Poi(object):
         venues = fsq.venues.search({
                                     "ll":"%s,%s" % (self.cordinates['x'], self.cordinates['y']),
                                     "limit": 50,
-                                    "radius": "1000",
+                                    "radius": "800",
                                     "intent": "browse",
                                     })['venues']
         green = 25
-        times = 1
+        times = 0
         near_place = dict()
         near_place['location'] = dict()
-        near_place['location']['distance'] = 0
+        near_place['location']['distance'] = 1500
         near_place['referralId'] = None
         near_place['name'] = ""
         
         near_station = dict()
         near_station['location'] = dict()
-        near_station['location']['distance'] = 0
+        near_station['location']['distance'] = 1500
         near_station['referralId'] = None
         near_station['name'] = ""
         
         near_plaza = dict()
         near_plaza['location'] = dict()
-        near_plaza['location']['distance'] = 0
+        near_plaza['location']['distance'] = 1500
         near_plaza['referralId'] = None
         near_plaza['name'] = ""
         
         for venue in venues:
             is_green = False
             for category in venue['categories']:
-                s_category = category['shortName'].lower()
-                
-                if "plaza" in s_category or "outdoor" in s_category:
-                    green +=80
+                s_category = smart_str(category['shortName']).lower()
+                if "plaza" in s_category:
+                    green += 80
                     times += 1
-                    if int(near_plaza['location']['distance']) < int(venue['location']['distance']):
-                        self.analysis_data['Outdoor place'] = "( %sm ) %s" % ( venue['location']['distance'], venue['name'])
+                    if int(near_plaza['location']['distance']) > int(venue['location']['distance']):
+                        self.analysis_data["Plaza"] = "( %sm ) %s" % ( venue['location']['distance'], venue['name'])
                         near_plaza = venue
+                    is_green = True
+                
+                elif "field" in s_category or "outdoor" in s_category: # EX: soccer field or outdoor
+                    if int(near_plaza['location']['distance']) > int(venue['location']['distance']):
+                        self.analysis_data["Outdoor place"] = "( %s  %sm ) %s" % ( s_category, venue['location']['distance'], venue['name'])
+                        near_plaza = venue
+                    green += 80
+                    times += 1
                     is_green = True
                     
                 elif "historyc" in s_category or "fountain" in s_category:
@@ -70,31 +77,28 @@ class Poi(object):
                 elif "station" in s_category or "bus" in s_category:
                     green +=75
                     times += 1
-                    if int(near_station['location']['distance']) < int(venue['location']['distance']):
-                        self.analysis_data['Public station'] = "( %sm ) %s" % ( venue['location']['distance'], venue['name'])
+                    if int(near_station['location']['distance']) > int(venue['location']['distance']):
+                        self.analysis_data["Public Transport"] = "( %s %sm ) %s" % ( s_category, venue['location']['distance'], venue['name'])
                         near_station = venue
-                    is_green = True
-
+                    
                 elif "subway" in s_category or "metro" in s_category.lower():
                     green +=75
                     times += 1
-                    if int(near_station['location']['distance']) < int(venue['location']['distance']):
-                        self.analysis_data['Public station'] = "( %sm ) %s" % ( venue['location']['distance'], venue['name'])
+                    if int(near_station['location']['distance']) > int(venue['location']['distance']):
+                        self.analysis_data["Public Transport"] = "( %s %sm ) %s" % ( s_category, venue['location']['distance'], venue['name'])
                         near_station = venue
-                    is_green = True
-
+                    
                 elif "school" in s_category or "univer" in s_category.lower():
                     green +=70
                     times += 1
-                break
-
+            
             if is_green:
-                if int(near_place['location']['distance']) < int(venue['location']['distance']):
-                    if venue["referralId"] != near_station['referralId'] or venue['referralId'] != near_plaza['referralId']:
+                if int(near_place['location']['distance']) > int(venue['location']['distance']):
+                    if venue["referralId"] != near_station['referralId'] and venue['referralId'] != near_plaza['referralId']:
                         near_place = venue
     
-        if not near_place['name'] == "":
-            self.analysis_data['Greener place near'] = "( %sm ) %s" % ( near_place['location']['distance'], near_place['name'])
+        if near_place['referralId']:
+            self.analysis_data['Other'] = "( %s %sm ) %s" % ( smart_str(near_place['categories'][0]['shortName']), near_place['location']['distance'], near_place['name'] )
         
         return int(green/times) # Media
         
