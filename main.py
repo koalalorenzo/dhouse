@@ -60,6 +60,10 @@ def serve_static(afilepath):
 def homepage():
     return render_template('homepage.html')
 
+@app.route("/<point_id>")
+def point_data(point_id):
+    return render_template('homepage.html')
+
 @app.route("/api")
 def main_api():
     return json.dumps({"Does it works": True})
