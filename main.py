@@ -65,8 +65,12 @@ def point_data(point_id):
     return render_template('homepage.html')
 
 @app.route("/api")
-def main_api():
-    return json.dumps({"Does it works": True})
+def api_is_working():
+    return json.dumps({"status":True})
+
+@app.route("/api/points")
+def api_points():
+    return json.dumps([])
 
 if __name__ == "__main__":
     import os
