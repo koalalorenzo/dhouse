@@ -1,13 +1,18 @@
-var mottos = [""];
+var mottos = [
+                'live <span style="color: #4e9a06">green</span>',
+                'respect the <span style="color: #3465a4">environment</span>',
+                'save your <span style="color: #f57900">money</span>'
+                ];
 var current = 0;
-
 function change_motto(){
-    current += 1;
     $("#mainMotto").fadeOut('slow', function() {
-        $("#mainMotto").html("Figata"+current);
+        if(current >= mottos.length){
+            current = 0;
+        }    
+        $("#mainMotto").html(mottos[current]);
         $("#mainMotto").fadeIn('slow', function() {
             setTimeout(change_motto, 1000);
         });
       });
-    console.log("Pronto");
+    current += 1;
 }
