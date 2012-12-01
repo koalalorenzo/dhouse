@@ -58,19 +58,29 @@ def serve_static(afilepath):
 #[section] Index part
 @app.route("/")
 def homepage():
-    return render_template('homepage.html')
+    return render_template('homepage.html', page="homepage")
 
-@app.route("/<point_id>")
+@app.route("/map")
+def map_page():
+    return render_template('map.html', page="map")
+
+@app.route("/p/<point_id>")
 def point_data(point_id):
-    return render_template('homepage.html')
+    return render_template('point.html')
 
 @app.route("/api")
 def api_is_working():
     return json.dumps({"status":True})
 
 @app.route("/api/points")
-def api_points():
-    return json.dumps([])
+def api_points():    
+    return json.dumps([{"title":"Titolo", "coordinates":{"lat":"41.8493344", "lng":"12.4755884"}, "link":"http://google.com"}])
+
+@app.route("/api/point/<point_id>")
+def api_point(point_id):
+    output = dict()
+    return json.dumps(output)
+
 
 if __name__ == "__main__":
     import os

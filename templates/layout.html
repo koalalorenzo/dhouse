@@ -26,11 +26,11 @@
 
     <link rel="shortcut icon" href="/static/favicon.ico">
     
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCrHgKIkZYYjXfER7meijF4qqFJ9wwGzVk&sensor=true"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyD1eUuIWJwZnqpedljBPMnWpwRKgdURxi0&sensor=true"></script>
     
     <script src="/static/map.js"></script>
     <script src="/static/markerclusterer.js"></script>
-        
+
   </head>
 
   <body>
@@ -53,10 +53,8 @@
               <li {% if page == "about" %}class="active"{% endif %}><a href="#about">About</a></li>
               <li {% if page == "contact" %}class="active"{% endif %}><a href="#contact">Contact</a></li>
             </ul>
-            <form action="/user/login" method="post" class="navbar-form pull-right">
-              <input class="span2" name="username" type="text" placeholder="username">
-              <input class="span2" name="password" type="password" placeholder="Password">
-              <button type="submit" class="btn">Login</button>
+            <form class="navbar-form pull-right">
+              <a href="/map" class="btn">Login</a>
             </form>
           </div><!--/.nav-collapse -->
           
