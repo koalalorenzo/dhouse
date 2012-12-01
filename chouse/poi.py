@@ -50,10 +50,8 @@ class Poi(object):
         near_plaza['name'] = ""
         
         for venue in venues:
-            print smart_str(venue['name']), ":"
             is_green = False
             for category in venue['categories']:
-                print smart_str(category['shortName'])
                 s_category = category['shortName'].lower()
                 
                 if "plaza" in s_category or "outdoor" in s_category:
@@ -89,8 +87,6 @@ class Poi(object):
                     green +=70
                     times += 1
                 break
-                
-            print "----"
 
             if is_green:
                 if int(near_place['location']['distance']) < int(venue['location']['distance']):
