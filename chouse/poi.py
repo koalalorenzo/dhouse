@@ -1,10 +1,8 @@
 #!/usr/bin/python
 import json
 import foursquare
-from chouse.metweet import API
+from chouse.metweet import *
 from chouse.conf import *
-
-foursquare_client = foursquare.Foursquare(client_id='TXRYPUX0100TCJG0R3ZVLNKA0YFHCVGJDCDRUMI4EY25TEU0', client_secret='IPI0ESJWVZSBCJZINMVSLGUWPNAZEE2F2DCSOPEYD2KCQ5PA')
 
 class Poi(object):
     def __init__(self):
@@ -15,7 +13,7 @@ class Poi(object):
         self.description = str()
         self.link = str()
         
-        self.grenn = int()
+        self.grenn = int() # Value of "green" 1-100
         self.analysis_data = dict() # Output of analysis.
         
     def __get_rest_json_api(self, url):
@@ -23,8 +21,52 @@ class Poi(object):
         return dict()
         
     
-    def foursquare
+    def get_foursquare_vote(self, fsq):
+        venues = fsq.venues.search({
+                                    "ll":"%s,%s" % (self.cordinates['x'], self.cordinates['y']),
+                                    "limit": 50,
+                                    "radius": 800,
+                                    "intent": "browse",
+                                    "near": "Roma"
+                                    })['venues']
+        gren = 25
+        times = 1
+        near_place = dict()
+        near_place['location'] = dict()
+        near_place['location']['distance'] = 0
         
+        for venue in venues:
+            if "station" in venue['name'].lower() or "bus" in venue['name'].lower():
+                green += 75
+                times += 1
+                if int(near_place['location']['distance']) < int(venue['location']['distance']):
+                    near_place = venue
+                continue
+                
+            is_green = False
+            for category in venue['categories']:
+                if "plaza" in category['shortName'] or "green" in category['shortName']:
+                    green +=75
+                    times += 1
+                    is_green = True
+                        
+                if "station" in category['shortName'] or "bus" in category['shortName']:
+                    green +=75
+                    times += 1
+                    is_green = True
+                    
+                if "Historyc" in category['shortName'] or "bus" in category['shortName']:
+                    green +=75
+                    times += 1
+                    is_green = True
+
+            if is_green:
+                if int(near_place['location']['distance']) < int(venue['location']['distance']):
+                    near_place = venue
+        
+        self.analysis_data['Greener place near'] = "( %sm ) %s" % ( near_place['location']['distance'], near_place['name'])
+        
+        return int(green/times) # Media
         
     def load(self):
         search = self.database.houses.find_one({"id": self.id})
