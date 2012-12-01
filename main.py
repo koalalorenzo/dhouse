@@ -8,6 +8,8 @@ main.py
 Created by Lorenzo Setale.
 Copyright (c) 2012 Lorenzo Setale. All rights reserved.
 """
+from chouse import Poi
+
 from django.utils.encoding import smart_str
 
 from flask import Flask, render_template, session, url_for, abort, redirect, flash, request
@@ -49,7 +51,6 @@ from pymongo import Connection, ASCENDING, DESCENDING
 #db = db_connection["app9597564"]
 
 #[section] Common functions for server
-    
 @app.route('/static/<path:afilepath>')
 def serve_static(afilepath):
     return redirect(url_for('static', filename=afilepath))
