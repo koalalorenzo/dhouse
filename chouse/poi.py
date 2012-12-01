@@ -10,27 +10,29 @@ class Poi(object):
         self.database = None
         self.id = None
         
-        self.cordinates = {"lat": lat, "lng": lng}
+        self.coordinates = {"lat": lat, "lng": lng}
+        self.cap = str()
+        
         self.description = str()
         self.link = str()
         
-        self.grenn = int() # Value of "green" 1-100
+        self.green = int() # Value of "green" 1-100
         self.analysis_data = dict() # Output of analysis.
         
     def __get_rest_json_api(self, url):
         """This functions gets json data from RESTful API"""
         return dict()
-        
     
     def get_foursquare_vote(self, fsq):
         venues = fsq.venues.search({
-                                    "ll":"%s,%s" % (self.cordinates['lat'], self.cordinates['lng']),
+                                    "ll":"%s,%s" % (self.coordinates['lat'], self.coordinates['lng']),
                                     "limit": 50,
                                     "radius": "800",
                                     "intent": "browse",
                                     })['venues']
         green = 25
         times = 0
+        
         near_place = dict()
         near_place['location'] = dict()
         near_place['location']['distance'] = 1500
@@ -43,6 +45,12 @@ class Poi(object):
         near_station['referralId'] = None
         near_station['name'] = ""
         
+        near_outdoor = dict()
+        near_outdoor['location'] = dict()
+        near_outdoor['location']['distance'] = 1500
+        near_outdoor['referralId'] = None
+        near_outdoor['name'] = ""
+
         near_plaza = dict()
         near_plaza['location'] = dict()
         near_plaza['location']['distance'] = 1500
@@ -53,48 +61,53 @@ class Poi(object):
             is_green = False
             for category in venue['categories']:
                 s_category = smart_str(category['shortName']).lower()
-                if "plaza" in s_category:
-                    green += 80
-                    times += 1
-                    if int(near_plaza['location']['distance']) > int(venue['location']['distance']):
-                        self.analysis_data["Plaza"] = "( %sm ) %s" % ( venue['location']['distance'], venue['name'])
-                        near_plaza = venue
-                    is_green = True
                 
-                elif "field" in s_category or "outdoor" in s_category: # EX: soccer field or outdoor
-                    if int(near_plaza['location']['distance']) > int(venue['location']['distance']):
+                if "field" in s_category or "outdoor" in s_category: # EX: soccer field or outdoor
+                    if int(near_outdoor['location']['distance']) > int(venue['location']['distance']):
                         self.analysis_data["Outdoor place"] = "( %s  %sm ) %s" % ( s_category, venue['location']['distance'], venue['name'])
-                        near_plaza = venue
+                        near_outdoor = venue
                     green += 80
                     times += 1
                     is_green = True
                     
                 elif "historyc" in s_category or "fountain" in s_category:
-                    green +=80
+                    green += 60
                     times += 1
+                    is_green = True
+
+                elif "plaza" in s_category:
+                    green += 60
+                    times += 1
+                    if int(near_plaza['location']['distance']) > int(venue['location']['distance']):
+                        self.analysis_data["Plaza"] = "( %sm ) %s" % ( venue['location']['distance'], venue['name'])
+                        near_outdoor = venue
                     is_green = True
                         
                 elif "station" in s_category or "bus" in s_category:
-                    green +=75
+                    green += 50
                     times += 1
                     if int(near_station['location']['distance']) > int(venue['location']['distance']):
                         self.analysis_data["Public Transport"] = "( %s %sm ) %s" % ( s_category, venue['location']['distance'], venue['name'])
                         near_station = venue
                     
                 elif "subway" in s_category or "metro" in s_category.lower():
-                    green +=75
+                    green += 50
                     times += 1
                     if int(near_station['location']['distance']) > int(venue['location']['distance']):
                         self.analysis_data["Public Transport"] = "( %s %sm ) %s" % ( s_category, venue['location']['distance'], venue['name'])
                         near_station = venue
                     
                 elif "school" in s_category or "univer" in s_category.lower():
-                    green +=70
+                    green += 40
                     times += 1
-            
+                    
+                elif "hospital" in s_category:
+                    green += 30
+                    times += 1
+               
             if is_green:
                 if int(near_place['location']['distance']) > int(venue['location']['distance']):
-                    if venue["referralId"] != near_station['referralId'] and venue['referralId'] != near_plaza['referralId']:
+                    if venue["referralId"] != near_station['referralId'] and venue['referralId'] != near_outdoor['referralId'] and venue['referralID'] != near_plaza['referralId']:
                         near_place = venue
     
         if near_place['referralId']:
@@ -102,6 +115,30 @@ class Poi(object):
         
         return int(green/times) # Media
         
+    def get_nox_by_cap(self):
+        if self.cap == "00145":
+            self.analysis_data['Pollution level ( N02 )'] = "196 mcg/m3 ( Risky )"
+            return 62
+        elif self.cap == "00185":
+            self.analysis_data['Pollution level ( N02 )'] = "110 mcg/m3 ( Average )"
+            return 62
+        
+    def get_pm10_by_cap(self):
+        if self.cap == "00145":
+            self.analysis_data['Pollution level ( PM10 )'] = "33 mcg/m3 ( Accettable )"
+            return 30
+        elif self.cap == "00185":
+            self.analysis_data['Pollution level ( PM10 )'] = "37 mcg/m3 ( Accettable )"
+            return 20
+    
+    def get_grass_dencity_by_cap(self):
+        if self.cap == "00145":
+            self.analysis_data['Green density'] = "62,2 %% ( Above average )"
+            return 62
+        elif self.cap == "00185":
+            self.analysis_data['Green density'] = "9,2 %% ( Very poor )"
+            return 9
+              
     def load(self):
         search = self.database.houses.find_one({"id": self.id})
         if search:
