@@ -1,4 +1,10 @@
 #!/usr/bin/python
+import json
+import foursquare
+from chouse.metweet import API
+from chouse.conf import *
+
+foursquare_client = foursquare.Foursquare(client_id='TXRYPUX0100TCJG0R3ZVLNKA0YFHCVGJDCDRUMI4EY25TEU0', client_secret='IPI0ESJWVZSBCJZINMVSLGUWPNAZEE2F2DCSOPEYD2KCQ5PA')
 
 class Poi(object):
     def __init__(self):
@@ -11,6 +17,14 @@ class Poi(object):
         
         self.grenn = int()
         self.analysis_data = dict() # Output of analysis.
+        
+    def __get_rest_json_api(self, url):
+        """This functions gets json data from RESTful API"""
+        return dict()
+        
+    
+    def foursquare
+        
         
     def load(self):
         search = self.database.houses.find_one({"id": self.id})
