@@ -4,3 +4,4 @@ simplejson
 pymongo
 feedparser
 django
+requests
