@@ -5,7 +5,7 @@ import requests
 
 # POST api.metwit.com/token 
 # INPUT: BasiAuth, FORM { "grant_type": "client_credentials" }
-# BasicAuth = username : clientID , password: client_secret
+# BasicAuth = username : 129380295 , password: -N5rCG100xR0SOX1oqan8eZ9L2lraBmkk6_Y4aIp
 # Output {"access_token"}
 
 # GET api.metwit.com/v2/weather/?location_lat=44&location_lng=10
