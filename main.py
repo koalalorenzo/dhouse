@@ -56,7 +56,11 @@ def serve_static(afilepath):
 
 #[section] Index part
 @app.route("/")
-def homepage():
+def main_api():
+    return render_template('homepage.html')
+
+@app.route("/api")
+def main_api():
     return json.dumps({"Does it works": True})
 
 if __name__ == "__main__":
