@@ -2,3 +2,4 @@ APScheduler==2.0.3
 simplejson
 pymongo
 feedparser
+django
