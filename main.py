@@ -45,8 +45,8 @@ def cached(timeout=5, key='view/%s'):
 
 from pymongo import Connection, ASCENDING, DESCENDING
 
-db_connection =  Connection("localhost", 27017, network_timeout=30, socketTimeoutMS=20000, connectTimeoutMS=30000)
-db = db_connection["app9597564"]
+#db_connection =  Connection("localhost", 27017, network_timeout=30, socketTimeoutMS=20000, connectTimeoutMS=30000)
+#db = db_connection["app9597564"]
 
 #[section] Common functions for server
     
