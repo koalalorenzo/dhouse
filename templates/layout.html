@@ -25,11 +25,13 @@
     <![endif]-->
 
     <link rel="shortcut icon" href="/static/favicon.ico">
-    
+    {% if page != "homepage" %}
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyD1eUuIWJwZnqpedljBPMnWpwRKgdURxi0&sensor=true"></script>
     
     <script src="/static/map.js"></script>
     <script src="/static/markerclusterer.js"></script>
+    {% endif %}
+    <script src="/static/mottos.js"></script>
 
   </head>
 

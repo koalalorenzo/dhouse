@@ -1,7 +1,20 @@
 {% extends "layout.html" %}
 
 {% block container %}
-    <div class="hero-unit" align="center" style="padding: 5px;">
-        <img src="/static/logo.png">
+    <div id="home" class="hero-unit" align="center" style="padding: 20px;">
+        <img src="/static/logo.png" width="600px"><br/><br/>
+        <p>
+            <h1>Your choice to <div id="mainMotto">live <span style="color: #4e9a06">green</span></div></h1><br/>
+            
+            <button class="btn" type="button">About us</button>
+            <button class="btn btn-primary" type="button"><i class="icon-search icon-white"></i> Start searcing</button>
+        </p>
     </div>
+    <script type="text/javascript">
+        setTimeout(change_motto, 1200);
+    </script>
+    <div style="height:1000px;" >
+
+    </div>
+    <div id="about">figo</div>
 {% endblock %}
