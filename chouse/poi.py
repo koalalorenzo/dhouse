@@ -6,11 +6,11 @@ from chouse.conf import *
 from django.utils.encoding import smart_str
 
 class Poi(object):
-    def __init__(self):
+    def __init__(self, lat, lng):
         self.database = None
         self.id = None
         
-        self.cordinates = dict() # { "x": "0.0" , "y": "0.0" }
+        self.cordinates = {"lat": lat, "lng": lng}
         self.description = str()
         self.link = str()
         
@@ -24,7 +24,7 @@ class Poi(object):
     
     def get_foursquare_vote(self, fsq):
         venues = fsq.venues.search({
-                                    "ll":"%s,%s" % (self.cordinates['x'], self.cordinates['y']),
+                                    "ll":"%s,%s" % (self.cordinates['lat'], self.cordinates['lng']),
                                     "limit": 50,
                                     "radius": "800",
                                     "intent": "browse",
