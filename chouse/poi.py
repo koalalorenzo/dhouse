@@ -44,6 +44,12 @@ class Poi(object):
         near_station['location']['distance'] = 1500
         near_station['referralId'] = None
         near_station['name'] = ""
+
+        near_metro = dict()
+        near_metro['location'] = dict()
+        near_metro['location']['distance'] = 1500
+        near_metro['referralId'] = None
+        near_metro['name'] = ""
         
         near_outdoor = dict()
         near_outdoor['location'] = dict()
@@ -87,15 +93,15 @@ class Poi(object):
                     green += 50
                     times += 1
                     if int(near_station['location']['distance']) > int(venue['location']['distance']):
-                        self.analysis_data["Public Transport"] = "%s at %sm - %s" % ( s_category, venue['location']['distance'], venue['name'] )
+                        self.analysis_data["Public Transport"] = "%s at <b>%sm</b> - %s" % ( s_category, venue['location']['distance'], venue['name'] )
                         near_station = venue
                     
                 elif "subway" in s_category or "metro" in s_category.lower():
                     green += 50
                     times += 1
-                    if int(near_station['location']['distance']) > int(venue['location']['distance']):
-                        self.analysis_data["Subway"] = "%sm %s" % ( venue['location']['distance'], venue['name'] )
-                        near_station = venue
+                    if int(near_metro['location']['distance']) > int(venue['location']['distance']):
+                        self.analysis_data["Subway"] = "<b>%sm</b> %s" % ( venue['location']['distance'], venue['name'] )
+                        near_metro = venue
                     
                 elif "school" in s_category or "univer" in s_category.lower():
                     green += 40
@@ -107,38 +113,38 @@ class Poi(object):
                
             if is_green:
                 if int(near_place['location']['distance']) > int(venue['location']['distance']):
-                    if venue["referralId"] != near_station['referralId'] and venue['referralId'] != near_outdoor['referralId'] and venue['referralID'] != near_plaza['referralId']:
+                    if venue["referralId"] != near_station['referralId'] and venue['referralId'] != near_outdoor['referralId'] and venue['referralID'] != near_plaza['referralId'] and venue['referralId'] != near_metro['referralId']:
                         near_place = venue
     
         if near_place['referralId']:
-            self.analysis_data['Other'] = "( %s %sm ) %s" % ( smart_str(near_place['categories'][0]['shortName']), near_place['location']['distance'], near_place['name'] )
+            self.analysis_data['Other'] = "%s at <b>%sm</b>: %s" % ( smart_str(near_place['categories'][0]['shortName']), near_place['location']['distance'], near_place['name'] )
         
         return int(green/times) # Media
         
     def get_nox_by_cap(self):
         if self.cap == "00145":
-            self.analysis_data['Pollution level ( N02 )'] = "196 mcg/m3 ( Risky )"
+            self.analysis_data['Pollution level ( N02 )'] = "<b>196 mcg/m3</b> ( Risky )"
             return 62
         elif self.cap == "00185":
-            self.analysis_data['Pollution level ( N02 )'] = "110 mcg/m3 ( Average )"
+            self.analysis_data['Pollution level ( N02 )'] = "<b>110 mcg/m3</b> ( Average )"
             return 62
         
     def get_pm10_by_cap(self):
         if self.cap == "00145":
-            self.analysis_data['Pollution level ( PM10 )'] = "33 mcg/m3 ( Accettable )"
+            self.analysis_data['Pollution level ( PM10 )'] = "<b>33 mcg/m3</b> ( Accettable )"
             return 30
         elif self.cap == "00185":
-            self.analysis_data['Pollution level ( PM10 )'] = "37 mcg/m3 ( Accettable )"
+            self.analysis_data['Pollution level ( PM10 )'] = "<b>37 mcg/m3</b> ( Accettable )"
             return 20
     
     def get_grass_dencity_by_cap(self):
         if self.cap == "00145":
-            self.analysis_data['Green density'] = "62,2 % ( Above average )"
-            self.analysis_data['Green per person'] = "216,7 m3 % ( Into the wild )"
+            self.analysis_data['Green density'] = "<b>62,2%</b> ( Above average )"
+            self.analysis_data['Green per person'] = "<b>216,7 m3</b> ( Into the wild )"
             return 62
         elif self.cap == "00185":
-            self.analysis_data['Green density'] = "9,2 % ( Very poor )"
-            self.analysis_data['Green per person'] = "10 m3 % ( Lower )"
+            self.analysis_data['Green density'] = "<b>9,2%</b> ( Very poor )"
+            self.analysis_data['Green per person'] = "<b>10 m3</b> ( Lower )"
             return 9
       
     def calculate_value(self):

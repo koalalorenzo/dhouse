@@ -56,7 +56,7 @@
             <div>
                 <h3>Green informations:</h3>
                 {% for key in point.analysis_data.keys() %}
-                    <b>{{ key }}</b>:<br/>{{ point.analysis_data[key] }}<br/><br/>
+                    <b>{{ key }}</b>:<br/>{{ point.analysis_data[key]|safe }}<br/><br/>
                 {% endfor %}
             </div>
         </div>
