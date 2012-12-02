@@ -13,7 +13,7 @@ uni = Poi("41.85556186229819", "12.470297813415527")
 enlabs.database = db
 uni.database = db
 
-uni.title = "OpenSpace Roma 3"
+uni.title = "Open Space Roma 3"
 uni.cap = "00145"
 uni.energetic_class = "d"
 
@@ -33,11 +33,7 @@ enlabs.photos.append({
                         "title": "Wide Area"    
                     })
                     
-enlabs.photos.append({
-                        "url":"https://dl.dropbox.com/u/1145876/enlabs/open/3.JPG",
-                        "description":"wide area",
-                        "title": "Wide Area"    
-                    })
+enlabs.photos.append({"url":"https://dl.dropbox.com/u/1145876/enlabs/open/3.JPG", "description":"wide area","title": "Wide Area" })
                     
 
 enlabs.calculate_value()
@@ -45,3 +41,4 @@ uni.calculate_value()
 
 uni.save()
 enlabs.save()
+
