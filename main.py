@@ -67,7 +67,7 @@ def search_page():
 
 @app.route("/p/<point_id>")
 def point_data(point_id):
-    search = self.database.houses.find_one({"id": self.id})
+    search = db.houses.find_one({"id": point_id})
     if not (search):
         abort(404)
     point = Poi(0,0).by_dictionary(search)
@@ -78,8 +78,13 @@ def api_is_working():
     return json.dumps({"status":True})
 
 @app.route("/api/points")
-def api_points():    
-    return json.dumps([{"title":"Titolo", "coordinates":{"lat":"41.8493344", "lng":"12.4755884"}, "link":"http://google.com"}])
+def api_points():
+    points = db.houses.find()
+    output = list()
+    for point in points:
+        point.pop("_id")
+        output.append(point)
+    return json.dumps(output)
 
 @app.route("/api/point/<point_id>")
 def api_point(point_id):

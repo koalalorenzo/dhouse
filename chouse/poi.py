@@ -9,8 +9,8 @@ from hashlib import sha1
 class Poi(object):
     def __init__(self, lat, lng):
         self.database = None
-        self.id = None
-        
+        self.id = sha1("%s%s" % (lat, lng)).hexdigest() 
+                
         self.coordinates = {"lat": lat, "lng": lng}
         self.cap = str()
         self.street = str()
