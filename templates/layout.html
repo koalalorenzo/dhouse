@@ -33,9 +33,18 @@
     {% if page == "homepage" %}
     <script src="/static/mottos.js"></script>
     {% endif %}
-  </head>
+    </head>
 
-  <body>
+    <body>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/it_IT/all.js#xfbml=1&appId=142422215907000";
+        fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
 
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
@@ -83,18 +92,18 @@
         {% block container %}{% endblock %}
       <hr>
     </div> <!-- /container -->
-<script type="text/javascript">
-$('a[href*=#]').click(function() {
-	if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'')
-      && location.hostname == this.hostname) {
-          var $target = $(this.hash);
-          $target = $target.length && $target || $('[id=' + this.hash.slice(1) +']');
-          if ($target.length) {
-              var targetOffset = $target.offset().top-50;
-              $('html,body').animate({scrollTop: targetOffset}, 1000);
-              return false;
+    <script type="text/javascript">
+    $('a[href*=#]').click(function() {
+    	if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'')
+          && location.hostname == this.hostname) {
+              var $target = $(this.hash);
+              $target = $target.length && $target || $('[id=' + this.hash.slice(1) +']');
+              if ($target.length) {
+                  var targetOffset = $target.offset().top;
+                  $('html,body').animate({scrollTop: targetOffset}, 1000);
+                  return false;
+              }
           }
-      }
- });
-</script>
+     });
+    </script>
 </body></html>
