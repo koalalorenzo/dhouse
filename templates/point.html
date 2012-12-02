@@ -45,10 +45,16 @@
                     });
                 </script>
             {% endif %}
+            <div>
+                {{ point.description }}
+            </div>
         </div>
         <div class="span4">
             <div class="hero-unit" style="padding: 15px;">
                 Green level: {{ point.green }}
+            </div>
+            <div class="hero-unit">
+                <a href="{{ point.link }}" class="btn btn-large btn-block btn-primary">Visit the agecy</a>
             </div>
             <div>
                 <h3>Green informations:</h3>
@@ -56,7 +62,7 @@
                     <b>{{ key }}</b>:<br/>{{ point.analysis_data[key]|safe }}<br/><br/>
                 {% endfor %}
             </div>
+            
         </div>
     </div>
-    
 {% endblock %}
