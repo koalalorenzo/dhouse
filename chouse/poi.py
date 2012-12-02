@@ -44,12 +44,6 @@ class Poi(object):
         near_station['location']['distance'] = 1500
         near_station['referralId'] = None
         near_station['name'] = ""
-
-        near_metro = dict()
-        near_metro['location'] = dict()
-        near_metro['location']['distance'] = 1500
-        near_metro['referralId'] = None
-        near_metro['name'] = ""
         
         near_outdoor = dict()
         near_outdoor['location'] = dict()
@@ -85,7 +79,7 @@ class Poi(object):
                     green += 60
                     times += 1
                     if int(near_plaza['location']['distance']) > int(venue['location']['distance']):
-                        self.analysis_data["Plaza"] = "( %sm ) %s" % ( venue['location']['distance'], venue['name'])
+                        self.analysis_data["Plaza"] = "%s at <b>%sm</b> " % (venue['name'],  venue['location']['distance'])
                         near_outdoor = venue
                     is_green = True
                         
@@ -99,9 +93,9 @@ class Poi(object):
                 elif "subway" in s_category or "metro" in s_category.lower():
                     green += 50
                     times += 1
-                    if int(near_metro['location']['distance']) > int(venue['location']['distance']):
-                        self.analysis_data["Subway"] = "<b>%sm</b> %s" % ( venue['location']['distance'], venue['name'] )
-                        near_metro = venue
+                    if int(near_station['location']['distance']) > int(venue['location']['distance']):
+                        self.analysis_data["Public Transport"] = "<b>%sm</b> to %s" % ( venue['location']['distance'], venue['name'] )
+                        near_station = venue
                     
                 elif "school" in s_category or "univer" in s_category.lower():
                     green += 40
@@ -113,7 +107,7 @@ class Poi(object):
                
             if is_green:
                 if int(near_place['location']['distance']) > int(venue['location']['distance']):
-                    if venue["referralId"] != near_station['referralId'] and venue['referralId'] != near_outdoor['referralId'] and venue['referralID'] != near_plaza['referralId'] and venue['referralId'] != near_metro['referralId']:
+                    if venue["referralId"] != near_station['referralId'] and venue['referralId'] != near_outdoor['referralId'] and venue['referralID'] != near_plaza['referralId']:
                         near_place = venue
     
         if near_place['referralId']:
