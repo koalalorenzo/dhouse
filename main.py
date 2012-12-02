@@ -87,6 +87,26 @@ def api_points():
         output.append(point)
     return json.dumps(output)
 
+@app.route("/api/search/<value>")
+def api_search_points(value):
+    search_array = value.split(" ")
+    
+    points = list()
+    
+    points.extend(list(db.houses.find({"title": { '$in': search_array}})))
+    points.extend(list(db.houses.find({"description": { '$in': search_array} })))
+    points.extend(list(db.houses.find({"cap": { '$in': search_array} })))
+    points.extend(list(db.houses.find({"street": { '$in': search_array } })))
+    points.extend(list(db.houses.find({"link": { '$in': search_array } })))
+    
+    output = list()
+    for point in points:
+        point.pop("_id")
+        if point in output: continue
+        output.append(point)
+    return json.dumps(output)
+
+
 @app.route("/api/point/<point_id>")
 def api_point(point_id):
     search = db.houses.find_one({"id": point_id})
