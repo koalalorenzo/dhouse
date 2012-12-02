@@ -45,7 +45,8 @@ function clearMarkers() {
 function ajaxLoadAllMarkers(){
 	clearMarkers();
 	$.getJSON('/api/points', function(data) {
-		$.each(data, function(num, point) {
+    	clearMarkers();
+    	$.each(data, function(num, point) {
 			add_point(point);
 			points.push(point);
 		});
@@ -57,6 +58,7 @@ function ajaxLoadAllMarkers(){
 function ajaxLoadPoint(point_id){
 	clearMarkers();
 	$.getJSON('/api/point/'+point_id, function(data) {
+    	clearMarkers();
 		$.each(data, function(num, point) {
 			tmp_marker = add_point(point, true);
 			points.push(point);
@@ -68,8 +70,8 @@ function ajaxLoadPoint(point_id){
 
 function search(){
     var searchValue = $("#searchInput").val();
-	clearMarkers();
 	$.getJSON('/api/search/'+searchValue, function(data) {
+    	clearMarkers();
 		for(var num in data) {
 		    var point = data[num];
 			tmp_marker = add_point(point, true);
