@@ -1,6 +1,7 @@
 var theMap;
 var clusterOptions = {};;
 var cluster;
+var points = [];
 
 var markersArray = [];
 
@@ -37,6 +38,7 @@ function clearMarkers() {
 			delete markersArray[i];
 		}
 	}
+	points = [];
 	markersArray = [];
 }
 
@@ -45,6 +47,7 @@ function ajaxLoadAllMarkers(){
 	$.getJSON('/api/points', function(data) {
 		$.each(data, function(num, point) {
 			add_point(point);
+			points.push(point);
 		});
 		if(!cluster)
         	cluster = new MarkerClusterer(theMap, markersArray, clusterOptions);
@@ -55,11 +58,27 @@ function ajaxLoadPoint(point_id){
 	clearMarkers();
 	$.getJSON('/api/point/'+point_id, function(data) {
 		$.each(data, function(num, point) {
-			add_point(point, true);
+			tmp_marker = add_point(point, true);
+			points.push(point);
 		});
 		if(!cluster)
     		cluster = new MarkerClusterer(theMap, markersArray, clusterOptions);
 	});    
+}
+
+function search(){
+    var searchValue = $("#searchInput").val();
+	clearMarkers();
+	$.getJSON('/api/search/'+searchValue, function(data) {
+		for(var point in data) {
+			tmp_marker = add_point(point, true);
+			points.push(point);
+			theMap.setCenter(tmp_marker.getPosition());			
+		}
+		if(!cluster)
+    		cluster = new MarkerClusterer(theMap, markersArray, clusterOptions);
+	});        
+    $("#searchInput").val("");
 }
 
 //google.maps.event.addDomListener(window, 'load', function(){ajaxLoadAllMarkers();});
