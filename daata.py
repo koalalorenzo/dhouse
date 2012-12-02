@@ -21,6 +21,24 @@ enlabs.title = "Bellissimo Open Space Termini"
 enlabs.cap = "00185"
 enlabs.energetic_class = "e"
 
+enlabs.photos.append({
+                        "url":"https://dl.dropbox.com/u/1145876/enlabs/open/1.JPG",
+                        "description":"wide area",
+                        "title": "Wide Area"    
+                    })
+
+enlabs.photos.append({
+                        "url":"https://dl.dropbox.com/u/1145876/enlabs/open/2.JPG",
+                        "description":"wide area",
+                        "title": "Wide Area"    
+                    })
+                    
+enlabs.photos.append({
+                        "url":"https://dl.dropbox.com/u/1145876/enlabs/open/3.JPG",
+                        "description":"wide area",
+                        "title": "Wide Area"    
+                    })
+
 enlabs.calculate_value()
 uni.calculate_value()
 
