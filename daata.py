@@ -17,13 +17,13 @@ uni.title = "Open Space Roma 3"
 uni.cap = "00145"
 uni.energetic_class = "d"
 uni.link = "http://www.uniroma3.it/"
-uni.description = "Deep inside the most important university of Rome, this place is really important for startups and ideas"
+uni.description = """Open space office 200mq large in Marconi. This is a stunning office space. With windows on four sides, private terrace, and a high end build-out, this is truly a rare find ID 3465"""
 
 enlabs.title = "Bellissimo Open Space Termini"
 enlabs.cap = "00185"
 enlabs.energetic_class = "e"
 enlabs.link = "http://enlabs.it"
-enlabs.description = "Cool place for startups"
+enlabs.description = """Spacious Open Loft 1000mq large In Termini.<br/>This spacious loft has an entire wall of windows and gets great natural light, hardwood floors and high ceiling. 24/7 access, 6 passenger elevators, freight elevator, secure lobby, close to transportation. Please reference listing ID 259"""
 
 enlabs.photos.append({ "url":"https://dl.dropbox.com/u/1145876/enlabs/open/1.JPG", "description":"wide area", "title": "Wide Area" })
 
