@@ -46,14 +46,17 @@
                 </script>
             {% endif %}
             <div>
-                {{ point.description }}
+                <h3>Description</h3>
+                <p>
+                    {{ point.description }}
+                </p>
             </div>
         </div>
         <div class="span4">
             <div class="hero-unit" style="padding: 15px;">
                 Green level: {{ point.green }}
             </div>
-            <div class="hero-unit">
+            <div class="hero-unit" style="padding: 15px;">
                 <a href="{{ point.link }}" class="btn btn-large btn-block btn-primary">Visit the agecy</a>
             </div>
             <div>
