@@ -131,12 +131,12 @@ class Poi(object):
     
     def get_grass_dencity_by_cap(self):
         if self.cap == "00145":
-            self.analysis_data['Green density'] = "62,2 %% ( Above average )"
-            self.analysis_data['Green per person'] = "216,7 m3 %% ( Into the wild )"
+            self.analysis_data['Green density'] = "62,2 % ( Above average )"
+            self.analysis_data['Green per person'] = "216,7 m3 % ( Into the wild )"
             return 62
         elif self.cap == "00185":
-            self.analysis_data['Green density'] = "9,2 %% ( Very poor )"
-            self.analysis_data['Green per person'] = "10 m3 %% ( Lower )"
+            self.analysis_data['Green density'] = "9,2 % ( Very poor )"
+            self.analysis_data['Green per person'] = "10 m3 % ( Lower )"
             return 9
       
     def calculate_value(self):
