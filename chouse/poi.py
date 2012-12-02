@@ -140,7 +140,7 @@ class Poi(object):
             return 62
         elif self.cap == "00185":
             self.analysis_data['Green density'] = "<b>9,2%</b> ( Very poor )"
-            self.analysis_data['Green per person'] = "<b>10 m3</b> ( Lower )"
+            self.analysis_data['Green per person'] = "<b>10 m3</b> ( Low )"
             return 9
 
     def get_value_by_energetic_class(self):
