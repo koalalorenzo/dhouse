@@ -127,10 +127,10 @@ class Poi(object):
         
     def get_pm10_by_cap(self):
         if self.cap == "00145":
-            self.analysis_data['Pollution level ( PM10 )'] = "<b>33 mcg/m3</b> ( Accettable )"
+            self.analysis_data['Pollution level ( PM10 )'] = "<b>33 mcg/m3</b> ( Acceptable )"
             return 30
         elif self.cap == "00185":
-            self.analysis_data['Pollution level ( PM10 )'] = "<b>37 mcg/m3</b> ( Accettable )"
+            self.analysis_data['Pollution level ( PM10 )'] = "<b>37 mcg/m3</b> ( Acceptable )"
             return 20
     
     def get_grass_dencity_by_cap(self):
