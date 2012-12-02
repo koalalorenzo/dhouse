@@ -22,10 +22,14 @@ function add_point(point, disable_click) {
     google.maps.event.addListener(marker, 'click', function() {
 		theMap.setCenter(marker.getPosition());
 		theMap.setZoom(18);
-		if(!disable_click)
+		if(!disable_click) {
 		    window.location = '/p/'+point['id'];
+        }
         else
+        {
             marker.setAnimation(google.maps.Animation.BOUNCE);
+            setTimeout(function(){marker.setAnimation(null);}, 1000);
+        }
     });
 	
 	return marker;
@@ -71,7 +75,8 @@ function ajaxLoadPoint(point_id){
 function search(){
     var searchValue = $("#searchInput").val();
 	$.getJSON('/api/search/'+searchValue, function(data) {
-    	clearMarkers();
+    	$("#searchInput").val("");
+        clearMarkers();
 		for(var num in data) {
 		    var point = data[num];
 			tmp_marker = add_point(point, true);
@@ -83,6 +88,6 @@ function search(){
     		cluster = new MarkerClusterer(theMap, markersArray, clusterOptions);
         $('#modalSearch').modal('hide');
     });
-    $("#searchInput").val("");
+    
 }
 
