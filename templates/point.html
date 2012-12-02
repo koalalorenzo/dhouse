@@ -2,7 +2,7 @@
 
 {% block container %}
     <h1>{{ point.title }}</h1>
-    <br/><br/>
+    <br/>
     <div class="row">
         <div class="span8" align="center">
             {% if point.photos|length > 0 %}
@@ -30,27 +30,31 @@
                 });
             </script>
             {% else %}
-                <div id="map_canvas" style="width:100%; height:200px"></div>
+                <div class="hero-unit" style="padding: 5px;">
+                    <div id="map_canvas" style="width:100%; height:400px"></div>
+                </div>
                 <script type="text/javascript">
                     $(function(){
                         var mapOptions = {
                               center: new google.maps.LatLng({{ point.coordinates['lat'] }}, {{ point.coordinates['lng'] }}),
-                              zoom: 14,
+                              zoom: 18,
                               mapTypeId: google.maps.MapTypeId.ROADMAP
                         };
                         theMap = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
                         //google.maps.event.addListener(theMap, 'idle', function() {
                         //    ajaxLoadAllMarkers();        
                         //});
+                        ajaxLoadPoint("{{ point.id }}");
                     });
                 </script>
             {% endif %}
         </div>
         <div class="span4">
-            <div class="hero-unit">
+            <div class="hero-unit" style="padding: 15px;">
                 Green level: {{ point.green }}
             </div>
             <div>
+                <h3>Green informations:</h3>
                 {% for key in point.analysis_data.keys() %}
                     <b>{{ key }}</b>:<br/>{{ point.analysis_data[key] }}<br/><br/>
                 {% endfor %}

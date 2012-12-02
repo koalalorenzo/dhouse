@@ -88,13 +88,11 @@ def api_points():
 
 @app.route("/api/point/<point_id>")
 def api_point(point_id):
-    output = dict()
     search = db.houses.find_one({"id": point_id})
-    if not (search):
-        abort(404)
     search.pop("_id")
-    return json.dumps(search)
-
+    if search:
+        return json.dumps([search])
+    return json.dumps([])
 
 if __name__ == "__main__":
     import os

@@ -18,12 +18,12 @@ function add_point(point, disable_click) {
 	});
 	markersArray.push( marker );
 
-	if(!disable_click)
-    	google.maps.event.addListener(marker, 'click', function() {
-    		theMap.setCenter(marker.getPosition());
-    		theMap.setZoom(18);
-    		window.location = '/p/'+point['id'];
-    	});
+    google.maps.event.addListener(marker, 'click', function() {
+		theMap.setCenter(marker.getPosition());
+		theMap.setZoom(18);
+		if(!disable_click)
+		    window.location = '/p/'+point['id'];
+    });
 	
 	return marker;
 }
@@ -44,8 +44,20 @@ function ajaxLoadAllMarkers(){
 		$.each(data, function(num, point) {
 			add_point(point);
 		});
-		cluster = new MarkerClusterer(theMap, markersArray, clusterOptions);
+		if(!cluster)
+        	cluster = new MarkerClusterer(theMap, markersArray, clusterOptions);
 	});
+}
+
+function ajaxLoadPoint(point_id){
+	clearMarkers();
+	$.getJSON('/api/point/'+point_id, function(data) {
+		$.each(data, function(num, point) {
+			add_point(point, true);
+		});
+		if(!cluster)
+    		cluster = new MarkerClusterer(theMap, markersArray, clusterOptions);
+	});    
 }
 
 //google.maps.event.addDomListener(window, 'load', function(){ajaxLoadAllMarkers();});

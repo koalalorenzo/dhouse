@@ -63,7 +63,7 @@ class Poi(object):
                 
                 if "field" in s_category or "outdoor" in s_category: # EX: soccer field or outdoor
                     if int(near_outdoor['location']['distance']) > int(venue['location']['distance']):
-                        self.analysis_data["Outdoor place"] = "( %s  %sm ) %s" % ( s_category, venue['location']['distance'], venue['name'])
+                        self.analysis_data["Outdoor place"] = "%s ( %s  %sm )" % ( venue['name'], s_category, venue['location']['distance'] )
                         near_outdoor = venue
                     green += 80
                     times += 1
