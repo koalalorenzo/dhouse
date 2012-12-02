@@ -41,9 +41,6 @@
                               mapTypeId: google.maps.MapTypeId.ROADMAP
                         };
                         theMap = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-                        //google.maps.event.addListener(theMap, 'idle', function() {
-                        //    ajaxLoadAllMarkers();        
-                        //});
                         ajaxLoadPoint("{{ point.id }}");
                     });
                 </script>

@@ -1,6 +1,6 @@
 var theMap;
 var clusterOptions = {};;
-var cluster;
+var cluster = true;
 var points = [];
 
 var markersArray = [];
@@ -14,7 +14,7 @@ var mapOptions = {
 function add_point(point, disable_click) {
 	var marker = new google.maps.Marker({
 		position: new google.maps.LatLng(point['coordinates']['lat'],point['coordinates']['lng']), 
-		map: null,
+		map: theMap,
 		title:point['title']
 	});
 	markersArray.push( marker );
@@ -85,6 +85,4 @@ function search(){
     });
     $("#searchInput").val("");
 }
-
-//google.maps.event.addDomListener(window, 'load', function(){ajaxLoadAllMarkers();});
 
