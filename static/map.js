@@ -70,14 +70,17 @@ function search(){
     var searchValue = $("#searchInput").val();
 	clearMarkers();
 	$.getJSON('/api/search/'+searchValue, function(data) {
-		for(var point in data) {
+		for(var num in data) {
+		    var point = data[num];
 			tmp_marker = add_point(point, true);
 			points.push(point);
 			theMap.setCenter(tmp_marker.getPosition());			
+			console.log(point);
 		}
 		if(!cluster)
     		cluster = new MarkerClusterer(theMap, markersArray, clusterOptions);
-	});        
+        $('#modalSearch').modal('hide');
+    });
     $("#searchInput").val("");
 }
 
