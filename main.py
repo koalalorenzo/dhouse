@@ -89,7 +89,7 @@ def api_points():
 
 @app.route("/api/search/<value>")
 def api_search_points(value):
-    search_regex = "%s+?" % value
+    search_regex = "%s?i:+?" % value
     
     points = list()
     
