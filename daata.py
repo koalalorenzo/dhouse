@@ -13,7 +13,10 @@ uni = Poi("41.85556186229819", "12.470297813415527")
 enlabs.database = db
 uni.database = db
 
+uni.title = "OpenSpace Roma 3"
 uni.cap = "00145"
+
+enlabs.title = "Bellissimo Open Space Termini"
 enlabs.cap = "00185"
 
 enlabs.calculate_value()
