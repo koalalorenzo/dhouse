@@ -87,14 +87,14 @@ class Poi(object):
                     green += 50
                     times += 1
                     if int(near_station['location']['distance']) > int(venue['location']['distance']):
-                        self.analysis_data["Public Transport"] = "( %s %sm ) %s" % ( s_category, venue['location']['distance'], venue['name'])
+                        self.analysis_data["Public Transport"] = "%s at %sm - %s" % ( s_category, venue['location']['distance'], venue['name'] )
                         near_station = venue
                     
                 elif "subway" in s_category or "metro" in s_category.lower():
                     green += 50
                     times += 1
                     if int(near_station['location']['distance']) > int(venue['location']['distance']):
-                        self.analysis_data["Public Transport"] = "( %s %sm ) %s" % ( s_category, venue['location']['distance'], venue['name'])
+                        self.analysis_data["Subway"] = "%sm %s" % ( venue['location']['distance'], venue['name'] )
                         near_station = venue
                     
                 elif "school" in s_category or "univer" in s_category.lower():
