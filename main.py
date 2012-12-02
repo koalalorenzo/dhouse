@@ -89,15 +89,15 @@ def api_points():
 
 @app.route("/api/search/<value>")
 def api_search_points(value):
-    search_array = value.split(" ")
+    search_regex = "%s+?" % value
     
     points = list()
     
-    points.extend(list(db.houses.find({"title": { '$in': search_array}})))
-    points.extend(list(db.houses.find({"description": { '$in': search_array} })))
-    points.extend(list(db.houses.find({"cap": { '$in': search_array} })))
-    points.extend(list(db.houses.find({"street": { '$in': search_array } })))
-    points.extend(list(db.houses.find({"link": { '$in': search_array } })))
+    points.extend(list(db.houses.find({"title": { '$regex': search_regex}})))
+    points.extend(list(db.houses.find({"description": { '$regex': search_regex} })))
+    points.extend(list(db.houses.find({"cap": { '$regex': search_regex} })))
+    points.extend(list(db.houses.find({"street": { '$regex': search_regex } })))
+    points.extend(list(db.houses.find({"link": { '$regex': search_regex } })))
     
     output = list()
     for point in points:
