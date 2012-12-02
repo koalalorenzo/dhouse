@@ -47,8 +47,8 @@ def cached(timeout=5, key='view/%s'):
 
 from pymongo import Connection, ASCENDING, DESCENDING
 
-#db_connection =  Connection("localhost", 27017, network_timeout=30, socketTimeoutMS=20000, connectTimeoutMS=30000)
-#db = db_connection["app9597564"]
+db_connection =  Connection("localhost", 27017, network_timeout=30, socketTimeoutMS=20000, connectTimeoutMS=30000)
+db = db_connection["app9597564"]
 
 #[section] Common functions for server
 @app.route('/static/<path:afilepath>')
@@ -60,9 +60,9 @@ def serve_static(afilepath):
 def homepage():
     return render_template('homepage.html', page="homepage")
 
-@app.route("/map")
-def map_page():
-    return render_template('map.html', page="map")
+@app.route("/search")
+def search_page():
+    return render_template('search.html', page="search")
 
 @app.route("/p/<point_id>")
 def point_data(point_id):
