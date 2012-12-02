@@ -36,13 +36,13 @@ function add_point(point, disable_click) {
             setTimeout(function(){marker.setAnimation(null);}, 1000);
         }
     });
-    if(!disable_click) {
-        if(point['green'] < 50){
-		    marker.setIcon('/static/imgs/low.png');
-        }else if(point['green'] > 50){
-    	    marker.setIcon('/static/imgs/medium.png');
-        }
+    
+    if(point['green'] < 50){
+	    marker.setIcon('/static/imgs/low.png');
+    }else if(point['green'] > 50){
+    	marker.setIcon('/static/imgs/medium.png');
     }
+    
 	return marker;
 }
 
