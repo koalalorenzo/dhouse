@@ -69,9 +69,11 @@
                 {% endif %}
 
             </div>
+            {% if point.link %}
             <div class="hero-unit" style="padding: 15px;">
-                <a href="{{ point.link }}" class="btn btn-large btn-block btn-primary">Visit the agecy</a>
+                <a href="{{ point.link }}" class="btn btn-large btn-block btn-primary">Visit the agency</a>
             </div>
+            {% endif %}
             {% if point.photos|length > 0 %}
             <div class="hero-unit" style="padding: 5px;">
                 <div id="map_canvas" style="width:100%; height:200px"></div>
