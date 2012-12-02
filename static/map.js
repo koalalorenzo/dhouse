@@ -23,6 +23,11 @@ function add_point(point, disable_click) {
 		theMap.setCenter(marker.getPosition());
 		theMap.setZoom(18);
 		if(!disable_click) {
+		    if(point['green'] < 50){
+		        marker.setIcon('/static/imgs/low.png');
+		    }else if(point['green'] > 50){
+    		    marker.setIcon('/static/imgs/medium.png');
+		    }
 		    window.location = '/p/'+point['id'];
         }
         else
@@ -31,7 +36,13 @@ function add_point(point, disable_click) {
             setTimeout(function(){marker.setAnimation(null);}, 1000);
         }
     });
-	
+    if(!disable_click) {
+        if(point['green'] < 50){
+		    marker.setIcon('/static/imgs/low.png');
+        }else if(point['green'] > 50){
+    	    marker.setIcon('/static/imgs/medium.png');
+        }
+    }
 	return marker;
 }
 
@@ -67,6 +78,7 @@ function ajaxLoadPoint(point_id){
 			tmp_marker = add_point(point, true);
 			points.push(point);
 		});
+		
 		if(!cluster)
     		cluster = new MarkerClusterer(theMap, markersArray, clusterOptions);
 	});    
