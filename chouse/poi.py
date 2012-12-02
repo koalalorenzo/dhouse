@@ -144,6 +144,7 @@ class Poi(object):
             return 9
 
     def get_value_by_energetic_class(self):
+        self.analysis_data["Building Energetic Class"] = "%s" % self.energetic_class.upper()
         if self.energetic_class == "a":
             return 90
         elif self.energetic_class == "b":

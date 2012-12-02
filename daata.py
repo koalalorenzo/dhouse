@@ -15,9 +15,11 @@ uni.database = db
 
 uni.title = "OpenSpace Roma 3"
 uni.cap = "00145"
+uni.energetic_class = "d"
 
 enlabs.title = "Bellissimo Open Space Termini"
 enlabs.cap = "00185"
+enlabs.energetic_class = "e"
 
 enlabs.calculate_value()
 uni.calculate_value()
