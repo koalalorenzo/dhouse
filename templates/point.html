@@ -1,12 +1,62 @@
 {% extends "layout.html" %}
 
 {% block container %}
+    <h1>{{ point.title }}</h1>
+    <br/><br/>
     <div class="row">
-        <div class="hero-unit span8" align="center">
-            prova
+        <div class="span8" align="center">
+            {% if point.photos|length > 0 %}
+            <div id="point-carousel" class="carousel slide">
+                <!-- Carousel items -->
+                <div class="carousel-inner">
+                {% for photo in point.photos %}
+                    <div class="item">
+                        <img src="{{ photo['url'] }}" alt="">
+                        <div class="carousel-caption">
+                          <h4>{{ photo['title'] }}</h4>
+                          <p>{{ photo['description'] }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+                
+                <!-- Carousel nav -->
+                <a class="carousel-control left" href="#point-carousel" data-slide="prev">&lsaquo;</a>
+                <a class="carousel-control right" href="#point-carousel" data-slide="next">&rsaquo;</a>
+            </div>
+            <script type="text/javascript">
+                $(function(){
+                    $('.carousel').carousel();
+                });
+            </script>
+            {% else %}
+                <div id="map_canvas" style="width:100%; height:200px"></div>
+                <script type="text/javascript">
+                    $(function(){
+                        var mapOptions = {
+                              center: new google.maps.LatLng({{ point.coordinates['lat'] }}, {{ point.coordinates['lng'] }}),
+                              zoom: 14,
+                              mapTypeId: google.maps.MapTypeId.ROADMAP
+                        };
+                        theMap = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+                        //google.maps.event.addListener(theMap, 'idle', function() {
+                        //    ajaxLoadAllMarkers();        
+                        //});
+                        ajaxLoadAllMarkers();
+                    });
+                </script>
+            {% endif %}
         </div>
-        <div class="hero-unit span4">
-            test
+        <div class="span4">
+            <div class="hero-unit">
+                Green level: {{ point.green }}
+            </div>
+            <div>
+                {% for key in point.analysis_data.keys() %}
+                    <b>{{ key }}</b>:<br/>{{ point.analysis_data[key] }}<br/><br/>
+                {% endfor %}
+            </div>
         </div>
     </div>
+    
 {% endblock %}

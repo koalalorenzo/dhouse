@@ -4,4 +4,10 @@
     <div class="hero-unit" align="center" style="padding: 5px;">
         <div id="map_canvas" style="width:100%; height:100%"></div>
     </div>
+    <script type="text/javascript">
+        $(function (){
+            theMap = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+            ajaxLoadAllMarkers();
+        });
+    </script>
 {% endblock %}

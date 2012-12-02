@@ -25,14 +25,14 @@
     <![endif]-->
 
     <link rel="shortcut icon" href="/static/favicon.ico">
-    {% if page == "search" %}
+    {% if page == "search" or page == "point" %}
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyD1eUuIWJwZnqpedljBPMnWpwRKgdURxi0&sensor=true"></script>
-    
     <script src="/static/map.js"></script>
     <script src="/static/markerclusterer.js"></script>
     {% endif %}
+    {% if page == "homepage" %}
     <script src="/static/mottos.js"></script>
-
+    {% endif %}
   </head>
 
   <body>
