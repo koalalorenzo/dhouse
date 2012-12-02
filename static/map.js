@@ -51,7 +51,7 @@ function ajaxLoadAllMarkers(){
 	$.getJSON('/api/points', function(data) {
     	clearMarkers();
     	$.each(data, function(num, point) {
-			add_point(point);
+			add_point(point, false);
 			points.push(point);
 		});
 		if(!cluster)
@@ -79,7 +79,7 @@ function search(){
         clearMarkers();
 		for(var num in data) {
 		    var point = data[num];
-			tmp_marker = add_point(point, true);
+			tmp_marker = add_point(point);
 			points.push(point);
 			theMap.setCenter(tmp_marker.getPosition());			
 			console.log(point);
