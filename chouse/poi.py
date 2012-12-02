@@ -14,6 +14,7 @@ class Poi(object):
         self.coordinates = {"lat": lat, "lng": lng}
         self.cap = str()
         self.street = str()
+        self.photos = list() 
         
         self.title = str()
         self.description = str()
@@ -168,6 +169,7 @@ class Poi(object):
         self.coordinates = dictionary['coordinates']
         self.cap = dictionary['cap']
         self.street = dictionary['street']
+        self.photos = dictionary['photos']
         
         self.title = dictionary['title']
         self.description = dictionary['description']
@@ -198,6 +200,7 @@ class Poi(object):
         old['coordinates'] = self.coordinates
         old['cap'] = self.cap
         old['street'] = self.street
+        old['photos'] = self.photos
         
         old['title'] = self.title
         old['description'] = self.description
