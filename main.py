@@ -66,7 +66,7 @@ def map_page():
 
 @app.route("/p/<point_id>")
 def point_data(point_id):
-    return render_template('point.html')
+    return render_template('point.html', page="point")
 
 @app.route("/api")
 def api_is_working():

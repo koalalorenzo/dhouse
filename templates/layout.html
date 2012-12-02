@@ -51,11 +51,11 @@
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li class="divider-vertical"></li>
-              <li class="active"><a href="/"><i class="icon-home"></i> Home</a></li>
-              <li><a href="#about"><i class="icon-leaf"></i> The Idea</a></li>
-              <li><a href="#contact"><i class="icon-user"></i> The Team</a></li>
-              <li><a href="#competitors"><i class="icon-fire"></i> Competitors</a></li>
-              <li><a href="#todos"><i class="icon-check"></i> To Do</a></li>
+              <li class="active"><a href="{% if page != "homepage" %}/{% endif %}#"><i class="icon-home"></i> Home</a></li>
+              <li><a href="{% if page != "homepage" %}/{% endif %}#idea"><i class="icon-leaf"></i> The Idea</a></li>
+              <li><a href="{% if page != "homepage" %}/{% endif %}#team"><i class="icon-user"></i> The Team</a></li>
+              <li><a href="{% if page != "homepage" %}/{% endif %}#backend"><i class="icon-user"></i> How it works</a></li>
+              <li><a href="{% if page != "homepage" %}/{% endif %}#todo"><i class="icon-check"></i> To Do</a></li>
             </ul>
             <form class="navbar-form pull-right">
               <a href="/map" class="btn btn-success"><i class="icon-search icon-white"></i> Start Now!</a>
@@ -77,4 +77,18 @@
         {% block container %}{% endblock %}
       <hr>
     </div> <!-- /container -->
+<script type="text/javascript">
+$('a[href*=#]').click(function() {
+	if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'')
+      && location.hostname == this.hostname) {
+          var $target = $(this.hash);
+          $target = $target.length && $target || $('[id=' + this.hash.slice(1) +']');
+          if ($target.length) {
+              var targetOffset = $target.offset().top-50;
+              $('html,body').animate({scrollTop: targetOffset}, 1000);
+              return false;
+          }
+      }
+ });
+</script>
 </body></html>

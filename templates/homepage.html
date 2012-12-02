@@ -1,17 +1,57 @@
 {% extends "layout.html" %}
 
 {% block container %}
-    <div id="home" class="hero-unit" align="center" style="padding: 20px;">
+    <div class="hero-unit" align="center" style="padding: 20px; height: 475px;">
         <img src="/static/logo.png" width="600px"><br/><br/>
         <p>
             <h1>Your choice to <div id="mainMotto">live <span style="color: #4e9a06">green</span></div></h1><br/>
             
-            <a class="btn">About us</a>
-            <a class="btn btn-primary"><i class="icon-search icon-white"></i> Start searching !</a>
+            <a href="#idea" class="btn btn-large">About us</a>
+            <a href="/search" class="btn btn-primary btn-large"><i class="icon-search icon-white"></i> Start searching !</a>
         </p>
     </div>
     <script type="text/javascript">
         setTimeout(change_motto, 1500);
     </script>
-    
+    <div id="idea"></div>
+    <div>
+        <h2>The Idea</h2>
+        <div class="hero-unit" style="background-color: transparent;">
+            We want to provide a cool map
+        </div>
+    </div>
+    <div id="team"></div>
+    <div>
+        <h2>The Team</h2>
+        <div class="hero-unit" style="background-color: transparent;">
+            We are 
+        </div>
+    </div>
+    <div id="bachkend"></div>
+    <div>
+        <h2>How it works: Open Source!</h2>
+        <div class="hero-unit" style="background-color: transparent;">
+            Our system parse the API provided during the Hackaton at this page and some API to get Houses to rent in Rome.
+            We decided to use only OpenSource technology:
+            <ul>
+                <li><b>Python Flask</b>: Micro framework really Fast!</li>
+                <li><b>MongoDB</b>: database made cool</li>
+                <li><b>Bootstrap</b>: did you recognized it? ;-)</li>
+                <li><b>Chouse</b>: yes... our backend is opensource!</li>
+            </ul>
+        </div>
+    </div>
+    <div id="todos"></div>
+    <div>
+        <h2>Next Steps</h2>
+        <div class="hero-unit">
+            <ul>
+                <li>Find money</li>
+                <li>Find money</li>
+                <li>Improove API</li>
+                <li>Widget for Agencies</li>
+                <li></li>
+            </ul>        
+        </div>
+    </div>
 {% endblock %}
