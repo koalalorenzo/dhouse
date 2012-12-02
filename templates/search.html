@@ -10,10 +10,10 @@
             <h3>Search</h3>
             Insert any keyword, CAP/Zip code, address you want to search.<br/>Our system will show you what you need!
             <br/><br/>
-            <form class="form-search" action="#">
+            <form id="searchForm" class="form-search">
                 <div class="input-append">
                     <input type="text" id="searchInput" class="span2 search-query">
-                    <button onclick="search()" type="submit" class="btn">Search</button>
+                    <button type="submit" class="btn">Search</button>
                 </div>
             </form>
         </div>
@@ -23,6 +23,11 @@
             theMap = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
             ajaxLoadAllMarkers();
             $('#modalSearch').modal({keyboard: false});
+            
+            $("#searchForm").submit(function(e) {
+                search();
+                return false;
+            });
         });
     </script>
 {% endblock %}
