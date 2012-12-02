@@ -38,6 +38,7 @@ enlabs.photos.append({
                         "description":"wide area",
                         "title": "Wide Area"    
                     })
+                    
 
 enlabs.calculate_value()
 uni.calculate_value()
