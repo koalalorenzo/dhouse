@@ -15,6 +15,7 @@ class Poi(object):
         self.cap = str()
         self.street = str()
         
+        self.title = str()
         self.description = str()
         self.link = str()
         
@@ -159,6 +160,7 @@ class Poi(object):
         search = self.database.houses.find_one({"id": self.id})
         if search:
            self.by_dictionary(search)
+        return self
         
     def by_dictionary(self, dictionary):
         self.id = dictionary['id']
@@ -167,12 +169,13 @@ class Poi(object):
         self.cap = dictionary['cap']
         self.street = dictionary['street']
         
+        self.title = dictionary['title']
         self.description = dictionary['description']
         self.link = dictionary['link']
         
         self.green = int(dictionary['green'])
         self.analysis_data = dictionary['analysis_data']
-        
+        return self
 
     def save(self):
         search = self.database.houses.find_one({"id": self.id})
@@ -196,6 +199,7 @@ class Poi(object):
         old['cap'] = self.cap
         old['street'] = self.street
         
+        old['title'] = self.title
         old['description'] = self.description
         old['link'] = self.link
         

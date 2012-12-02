@@ -8,7 +8,6 @@ main.py
 Created by Lorenzo Setale.
 Copyright (c) 2012 Lorenzo Setale. All rights reserved.
 """
-from chouse import Poi
 
 from django.utils.encoding import smart_str
 
@@ -26,6 +25,8 @@ import time
 app = Flask(__name__)
 app.secret_key = 'ksgnaigjsaoughowearsugobxg7r8aglsuhpao9sef8jsofalsjfaòoseguf'
 app.debug = True
+
+from chouse import Poi
 
 if not os.path.isdir("/tmp/chouse-cache"):
     os.mkdir("/tmp/chouse-cache")
@@ -66,7 +67,11 @@ def search_page():
 
 @app.route("/p/<point_id>")
 def point_data(point_id):
-    return render_template('point.html', page="point")
+    search = self.database.houses.find_one({"id": self.id})
+    if not (search):
+        abort(404)
+    point = Poi(0,0).by_dictionary(search)
+    return render_template('point.html', page="point", point=point)
 
 @app.route("/api")
 def api_is_working():
