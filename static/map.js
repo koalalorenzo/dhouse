@@ -23,6 +23,8 @@ function add_point(point, disable_click) {
 		theMap.setZoom(18);
 		if(!disable_click)
 		    window.location = '/p/'+point['id'];
+        else
+            marker.setAnimation(google.maps.Animation.BOUNCE);
     });
 	
 	return marker;
