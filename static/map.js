@@ -10,7 +10,7 @@ var mapOptions = {
       mapTypeId: google.maps.MapTypeId.ROADMAP
 };
 
-function add_point(point) {
+function add_point(point, disable_click) {
 	var marker = new google.maps.Marker({
 		position: new google.maps.LatLng(point['coordinates']['lat'],point['coordinates']['lng']), 
 		map: null,
@@ -18,11 +18,12 @@ function add_point(point) {
 	});
 	markersArray.push( marker );
 
-	google.maps.event.addListener(marker, 'click', function() {
-		theMap.setCenter(marker.getPosition());
-		theMap.setZoom(18);
-		window.location = '/p/'+point['id'];
-	});
+	if(!disable_click)
+    	google.maps.event.addListener(marker, 'click', function() {
+    		theMap.setCenter(marker.getPosition());
+    		theMap.setZoom(18);
+    		window.location = '/p/'+point['id'];
+    	});
 	
 	return marker;
 }
