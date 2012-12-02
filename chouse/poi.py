@@ -15,11 +15,13 @@ class Poi(object):
         self.cap = str()
         self.street = str()
         self.photos = list() 
+        self.price = int()
         
         self.title = str()
         self.description = str()
         self.link = str()
-        
+        self.energetic_class = str() # a - g
+                
         self.green = int() # Value of "green" 1-100
         self.analysis_data = dict() # Output of analysis.
     
@@ -140,6 +142,24 @@ class Poi(object):
             self.analysis_data['Green density'] = "<b>9,2%</b> ( Very poor )"
             self.analysis_data['Green per person'] = "<b>10 m3</b> ( Lower )"
             return 9
+
+    def get_value_by_energetic_class(self):
+        if self.energetic_class == "a":
+            return 90
+        elif self.energetic_class == "b":
+            return 80
+        elif self.energetic_class == "c":
+            return 70
+        elif self.energetic_class == "d":
+            return 60
+        elif self.energetic_class == "e":
+            return 50
+        elif self.energetic_class == "f":
+            return 40
+        elif self.energetic_class == "g":
+            return 30
+        else:
+            return 20
       
     def calculate_value(self):
         self.green = 0
@@ -153,8 +173,9 @@ class Poi(object):
         total += self.get_nox_by_cap()
         total += self.get_pm10_by_cap()
         total += self.get_grass_dencity_by_cap()
+        total += self.get_value_by_energetic_class()
         
-        self.green = int(total/4)
+        self.green = int(total/5)
         return self.green
         
     def load(self):
@@ -170,10 +191,12 @@ class Poi(object):
         self.cap = dictionary['cap']
         self.street = dictionary['street']
         self.photos = dictionary['photos']
+        self.price = int(dictionary['price'])
         
         self.title = dictionary['title']
         self.description = dictionary['description']
         self.link = dictionary['link']
+        self.energetic_class = dictionary['energetic_class']
         
         self.green = int(dictionary['green'])
         self.analysis_data = dictionary['analysis_data']
@@ -201,10 +224,12 @@ class Poi(object):
         old['cap'] = self.cap
         old['street'] = self.street
         old['photos'] = self.photos
+        old['price'] = self.price
         
         old['title'] = self.title
         old['description'] = self.description
         old['link'] = self.link
+        old['energetic_class'] = self.energetic_class
         
         old['green'] = self.green
         old['analysis_data'] = self.analysis_data

@@ -3,9 +3,9 @@ from chouse.conf import *
 import foursquare
 from pymongo import Connection, ASCENDING, DESCENDING
 
-db_connection =  Connection("localhost", 27017, network_timeout=30, socketTimeoutMS=20000, connectTimeoutMS=30000)
-db = db_connection["app9597564"]
-
+db_connection =  Connection("ds043987.mongolab.com", 43987, network_timeout=30, socketTimeoutMS=20000, connectTimeoutMS=30000)
+db = db_connection["heroku_app9641020"]
+db.authenticate("chouseServer","genericpassword")
 
 enlabs = Poi("41.89954600592677", "12.502334117889404")
 uni = Poi("41.85556186229819", "12.470297813415527")
