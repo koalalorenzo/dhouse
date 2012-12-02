@@ -1,13 +1,23 @@
 from chouse import Poi
 from chouse.conf import *
 import foursquare
+from pymongo import Connection, ASCENDING, DESCENDING
 
-foursquare_client = foursquare.Foursquare(client_id=FOURSQUARE_API_CLIENT_ID, client_secret=FOURSQUARE_API_CLIENT_SECRET)
+db_connection =  Connection("localhost", 27017, network_timeout=30, socketTimeoutMS=20000, connectTimeoutMS=30000)
+db = db_connection["app9597564"]
 
 
 enlabs = Poi("41.89954600592677", "12.502334117889404")
-metro_marconi = Poi("41.8493344", "12.4755884")
 uni = Poi("41.85556186229819", "12.470297813415527")
 
-enlabs.get_foursquare_vote(foursquare_client)
-enlabs.analysis_data
+enlabs.database = db
+uni.database = db
+
+uni.cap = "00145"
+enlabs.cap = "00185"
+
+enlabs.calculate_value()
+uni.calculate_value()
+
+uni.save()
+enlabs.save()

@@ -4,6 +4,7 @@ import foursquare
 from chouse.metwit import *
 from chouse.conf import *
 from django.utils.encoding import smart_str
+from hashlib import sha1
 
 class Poi(object):
     def __init__(self, lat, lng):
@@ -12,16 +13,13 @@ class Poi(object):
         
         self.coordinates = {"lat": lat, "lng": lng}
         self.cap = str()
+        self.street = str()
         
         self.description = str()
         self.link = str()
         
         self.green = int() # Value of "green" 1-100
         self.analysis_data = dict() # Output of analysis.
-        
-    def __get_rest_json_api(self, url):
-        """This functions gets json data from RESTful API"""
-        return dict()
     
     def get_foursquare_vote(self, fsq):
         venues = fsq.venues.search({
@@ -140,7 +138,23 @@ class Poi(object):
             self.analysis_data['Green density'] = "9,2 %% ( Very poor )"
             self.analysis_data['Green per person'] = "10 m3 %% ( Lower )"
             return 9
-            
+      
+    def calculate_value(self):
+        self.green = 0
+        total = 0
+        
+        foursquare_client = foursquare.Foursquare(
+                client_id=FOURSQUARE_API_CLIENT_ID,
+                client_secret=FOURSQUARE_API_CLIENT_SECRET)
+
+        total += self.get_foursquare_vote(foursquare_client)
+        total += self.get_nox_by_cap()
+        total += self.get_pm10_by_cap()
+        total += self.get_grass_dencity_by_cap()
+        
+        self.green = int(total/4)
+        return self.green
+        
     def load(self):
         search = self.database.houses.find_one({"id": self.id})
         if search:
@@ -149,6 +163,17 @@ class Poi(object):
     def by_dictionary(self, dictionary):
         self.id = dictionary['id']
         
+        self.coordinates = dictionary['coordinates']
+        self.cap = dictionary['cap']
+        self.street = dictionary['street']
+        
+        self.description = dictionary['description']
+        self.link = dictionary['link']
+        
+        self.green = int(dictionary['green'])
+        self.analysis_data = dictionary['analysis_data']
+        
+
     def save(self):
         search = self.database.houses.find_one({"id": self.id})
         dictionary = self.__dict__(old=search)
@@ -159,9 +184,23 @@ class Poi(object):
     def __dict__(self, old=None):
         if not old:
             old = dict()
-            
+
+        if not self.id:
+            self.id = sha1("%s%s" % ( self.coordinates['lat'], self.coordinates['lng'])).hexdigest()            
+        
         if not old.has_key("id"):
             old['id'] = self.id
+        
+        
+        old['coordinates'] = self.coordinates
+        old['cap'] = self.cap
+        old['street'] = self.street
+        
+        old['description'] = self.description
+        old['link'] = self.link
+        
+        old['green'] = self.green
+        old['analysis_data'] = self.analysis_data
         
         return old
         
