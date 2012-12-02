@@ -40,8 +40,34 @@
             {% endif %}
         </div>
         <div class="span4">
-            <div class="hero-unit" style="padding: 15px;">
-                Green level: {{ point.green }}
+            <div class="hero-unit" style="padding: 15px;" aling="center">
+                Green level: {{ point.green }}<br/>
+                {% if point.green|int > 16 and point.green|int <= 33 %}
+                    <img src="/static/imgs/leaf.png">
+                {% endif %}
+                {% if point.green|int > 33 and point.green <= 49 %}
+                    <img src="/static/imgs/leaf.png">
+                    <img src="/static/imgs/leaf.png">
+                {% endif %}
+                {% if point.green|int > 49 and point.green|int <= 66 %}
+                    <img src="/static/imgs/leaf.png">
+                    <img src="/static/imgs/leaf.png">
+                    <img src="/static/imgs/leaf.png">
+                {% endif %}
+                {% if point.green|int > 66 and point.green|int <= 83 %}
+                    <img src="/static/imgs/leaf.png">
+                    <img src="/static/imgs/leaf.png">
+                    <img src="/static/imgs/leaf.png">
+                    <img src="/static/imgs/leaf.png">
+                {% endif %}
+                {% if point.green|int > 83 and point.green|int <= 100 %}
+                    <img src="/static/imgs/leaf.png">
+                    <img src="/static/imgs/leaf.png">
+                    <img src="/static/imgs/leaf.png">
+                    <img src="/static/imgs/leaf.png">
+                    <img src="/static/imgs/leaf.png">
+                {% endif %}
+
             </div>
             <div class="hero-unit" style="padding: 15px;">
                 <a href="{{ point.link }}" class="btn btn-large btn-block btn-primary">Visit the agecy</a>
